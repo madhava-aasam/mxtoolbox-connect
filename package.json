@@ -1,10 +1,10 @@
 {
-  "name": "mxtools",
-  "version": "1.0.0",
+  "name": "mxtoolbox-connect",
+  "version": "2.0.0",
   "description": "a node wrapper for mxtoolbox api",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "jest",
     "start": "node index.js"
   },
   "repository": {
@@ -15,7 +15,8 @@
     "mx",
     "mxtoolbox",
     "spf",
-    "dmarc"
+    "dmarc",
+    "blacklist"
   ],
   "author": "madhava reddy",
   "license": "ISC",
@@ -24,8 +25,8 @@
   },
   "homepage": "https://github.com/madhava-aasam/mxtools#readme",
   "devDependencies": {
-    "jest": "^27.0.6",
-    "nodemon": "^2.0.7"
+    "faker": "^5.5.3",
+    "jest": "^27.0.6"
   },
   "dependencies": {
     "axios": "^0.21.1"

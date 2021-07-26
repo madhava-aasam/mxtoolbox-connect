@@ -1,4 +1,4 @@
-const { default: axios } = require("axios");
+const axios = require("axios");
 const config = require("./config");
 
 const lookup = async (url, command, apiKey) => {
@@ -9,7 +9,7 @@ const lookup = async (url, command, apiKey) => {
       !command ||
       !config.validCommands.includes(command)
     ) {
-      return new Error("invalid input parameters");
+      return { error_code: 400, message: "Bad request" };
     }
 
     const options = {
@@ -18,11 +18,22 @@ const lookup = async (url, command, apiKey) => {
         "Content-Type": "application/json",
       },
     };
-    const result = await axios.get(
-      `${config.apiUrl}/${command}/${sanitizeUrl(url)}`,
-      options
-    );
-    return result.data;
+
+    let response = {};
+    try {
+      const result = await axios.get(
+        `${config.apiUrl}/${command}/${sanitizeUrl(url)}`,
+        options
+      );
+      response = result && result.data;
+    } catch (error) {
+      response = {
+        error_code: error.response.status,
+        message: error.response && error.response.statusText,
+      };
+    }
+
+    return response;
   } catch (error) {
     throw error;
   }
@@ -32,4 +43,4 @@ function sanitizeUrl(url) {
   return url.replace(/^(http|https):\/\/|\/$/g, "");
 }
 
-module.exports = lookup;
+module.exports = { lookup };
