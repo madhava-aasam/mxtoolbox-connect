@@ -1,6 +1,6 @@
 {
   "name": "mxtoolbox-connect",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "a node wrapper for mxtoolbox api",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,8 @@
     "mxtoolbox",
     "spf",
     "dmarc",
-    "blacklist"
+    "blacklist",
+    "mxtoolbox-connect"
   ],
   "author": "madhava reddy",
   "license": "ISC",

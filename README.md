@@ -1,6 +1,29 @@
 # mxtoolbox-connect
 A node wrapper for [Mx Toolbox](https://mxtoolbox.com/user/api) API
 
+### Lookup information for below and get JSON response
+* mx
+* a
+* dns
+* spf
+* txt
+* soa
+* ptr
+* blacklist
+* smtp
+* tcp
+* http
+* https
+* ping
+* trace
+* dmarc
+
+## Installation
+
+```
+npm install mxtoolbox-connect
+```
+
 ## Usage
 
 ```

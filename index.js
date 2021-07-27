@@ -9,7 +9,7 @@ const lookup = async (url, command, apiKey) => {
       !command ||
       !config.validCommands.includes(command)
     ) {
-      return { error_code: 400, message: "Bad request" };
+      throw new Error("Bad request");
     }
 
     const options = {
@@ -27,15 +27,12 @@ const lookup = async (url, command, apiKey) => {
       );
       response = result && result.data;
     } catch (error) {
-      response = {
-        error_code: error.response.status,
-        message: error.response && error.response.statusText,
-      };
+      throw new Error("Bad request");
     }
 
     return response;
   } catch (error) {
-    throw error;
+  throw error;
   }
 };
 

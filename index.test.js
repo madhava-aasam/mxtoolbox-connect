@@ -4,12 +4,6 @@ const axios = require("axios");
 
 jest.mock("axios");
 
-test("should return error if invalid input", async () => {
-  const result = await lookup("", "spf", faker.datatype.uuid());
-
-  expect(result.error_code).toBe(400);
-});
-
 test("should return valid result", async () => {
   axios.get.mockImplementation(() =>
     Promise.resolve({ status: 200, data: { resp: true } })
@@ -24,16 +18,25 @@ test("should return valid result", async () => {
   expect(result).toEqual({ resp: true });
 });
 
+test("should return error if invalid input", async () => {
+  let err;
+  try {
+    await lookup("", "spf", faker.datatype.uuid());
+  } catch (error) {
+    err = error;
+  }
+  await expect(err.message).toBe("Bad request");
+});
+
 test("should return error if api returns error", async () => {
-  axios.get.mockImplementation(() =>
-    Promise.reject({ response: { status: 400, statusText: "Bad request" } })
-  );
+  axios.get.mockImplementation(() => Promise.reject("Bad request"));
 
-  const result = await lookup(
-    faker.internet.url(),
-    "spf",
-    faker.datatype.uuid()
-  );
+  let err;
+  try {
+    await lookup(faker.internet.url(), "spf", faker.datatype.uuid());
+  } catch (error) {
+    err = error;
+  }
 
-  expect(result).toEqual({ error_code: 400, message: "Bad request" });
+  expect(err.message).toBe("Bad request");
 });
